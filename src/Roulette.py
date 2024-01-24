@@ -1,5 +1,6 @@
 import tornado.web
+import random
 
 class Handler(tornado.web.RequestHandler):
     def get(self):
-        self.write('<a href="/roulette">Roulette</a>')
+        self.render("Roulette.html")
