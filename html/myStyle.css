@@ -4,6 +4,24 @@
     font-family: 'Courier New', Courier, monospace;
     border: 0.1cm solid rgb(200,50,50);
     margin: 0.1cm;
-    padding: 0.1cm;
-    
+    padding: 0.1cm; 
+}
+
+table {
+    border: 1px solid grey;
+    margin: 2px;
+    display: inline-grid;
+}
+
+tr {
+    border: 1px solid grey;
+}
+
+th {
+    width: 100%;
+    font-weight: 1000;
+}
+
+td {
+    width: 20%;
 }

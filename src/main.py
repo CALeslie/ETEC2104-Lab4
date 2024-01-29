@@ -2,7 +2,6 @@ import asyncio
 import tornado.web
 import Index
 import Roulette
-import UsersTemplate
 import os.path
 
 HTMLDIR = os.path.abspath(

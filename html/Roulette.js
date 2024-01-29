@@ -1,12 +1,32 @@
+let tbl = document.createElement("table");
+let L = [["Number", "Color", "Pairity", "Pass/Fail"]];
+
+window.onload = function() {
+    init();
+}
+
+function init() {
+    for(let i=0;i<L.length;++i){
+        let row = L[i];
+        let tr = document.createElement("tr");
+        tbl.appendChild(tr);
+        for(let j=0;j<row.length;++j){
+            let th = document.createElement("th");
+            tr.appendChild(th);
+            let txt = document.createTextNode( row[j] );
+            th.appendChild( txt );
+        }
+    }
+    document.body.appendChild(tbl);
+}
+
 function roulette () {
     let x = Math.floor((Math.random() * 37) + 1);
-    let s = [];
+    let s = []
     if (x == 37) {
-        document.getElementById("ret").innerHTML = "0, Rouge, Impair, Passe";
-        console.log ("0, Rouge, Impair, Passe");
+        s.push ("0, Rouge, Impair, Passe");
     } else if (x == 38) {
-        document.getElementById("ret").innerHTML = "00, Noir, Pair, Passe";
-        console.log ("00, Noir, Pair, Passe");
+        s.push ("00, Noir, Pair, Passe");
     } else {
         s.push(x.toString(10));
         if (x < 11 || (x > 18 && x < 29)) {
@@ -32,7 +52,19 @@ function roulette () {
             s.push("Passe");
         }
         
-        document.getElementById("ret").innerHTML = "Result: " + s.join(", ");
-        console.log ("Result: " + s.join(", "));
+        L.push(s);
+
+
+        let row = L[L.length - 1];
+        let tr = document.createElement("tr");
+        tbl.appendChild(tr);
+        for(let j=0;j<row.length;++j){
+            let td = document.createElement("td");
+            tr.appendChild(td);
+            let txt = document.createTextNode( row[j] );
+            td.appendChild(txt);
+        }
     }
+
+    
 }
