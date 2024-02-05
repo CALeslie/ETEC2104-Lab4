@@ -60,20 +60,13 @@ function roulette () {
     L.push(s);
 
     let row = L[L.length - 1];
-    let tr = document.createElement("tr");
-    //tbl.appendChild(tr);
-    for(let j=0;j<row.length;++j){
-        let td = document.createElement("td");
-        tr.appendChild(td);
-        let txt = document.createTextNode( row[j] );
-        td.appendChild(txt);
-    }
-    sendTr(tr);
+    let trData = [row[0], row[1], row[2], row[3]];
+    sendTr(trData);
 }
 
-function sendTr (tr) {
-    let trData = JSON.stringify([tr.childNodes[0].childNodes[0].nodeValue, tr.childNodes[1].childNodes[0].nodeValue, tr.childNodes[2].childNodes[0].nodeValue, tr.childNodes[3].childNodes[0].nodeValue]);
-    sock.send(trData);
+function sendTr (trData) {
+    let trJson = JSON.stringify(trData);
+    sock.send(trJson);
 }
 
 function trReceived (ev) {
