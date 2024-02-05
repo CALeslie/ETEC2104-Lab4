@@ -1,3 +1,7 @@
+"use strict";
+
+let sock;
+
 let tbl = document.createElement("table");
 let L = [["#", "Color", "Pairity", "Pass/Fail"]];
 
@@ -5,7 +9,7 @@ window.onload = function() {
     init();
 }
 
-function init() {
+function init () {
     for(let i=0;i<L.length;++i){
         let row = L[i];
         let tr = document.createElement("tr");
@@ -57,13 +61,31 @@ function roulette () {
 
     let row = L[L.length - 1];
     let tr = document.createElement("tr");
-    tbl.appendChild(tr);
+    //tbl.appendChild(tr);
     for(let j=0;j<row.length;++j){
         let td = document.createElement("td");
         tr.appendChild(td);
         let txt = document.createTextNode( row[j] );
         td.appendChild(txt);
-        switch (j) {
+    }
+    sendTr(tr);
+}
+
+function sendTr (tr) {
+    let trData = JSON.stringify([tr.childNodes[0].childNodes[0].nodeValue, tr.childNodes[1].childNodes[0].nodeValue, tr.childNodes[2].childNodes[0].nodeValue, tr.childNodes[3].childNodes[0].nodeValue]);
+    sock.send(trData);
+}
+
+function trReceived (ev) {
+    console.log("received Data");
+    let tr = document.createElement("tr");
+    let trData = JSON.parse(ev.data);
+    for (let i = 0; i < trData.length; i++) {
+        let td = document.createElement("td");
+        tr.appendChild(td);
+        let txt = document.createTextNode( trData[i] );
+        td.appendChild(txt);
+        switch (i) {
             case 0:
                 break;
             case 1:
@@ -89,4 +111,12 @@ function roulette () {
                 break;
         }
     }
+    tbl.appendChild(tr);
 }
+
+function main() {
+    sock = new WebSocket("ws://"+document.location.host+"/sock");
+    sock.addEventListener("message", trReceived );
+}
+
+main();
